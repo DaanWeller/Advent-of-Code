@@ -8,7 +8,47 @@ def main():
 
     print("The answer to part 1 is " + str(count_xmas(lines, line_length)))
 
+    print("The answer to part 2 is " + str(count_x_mas(lines, line_length)))
+
     return 0
+
+
+def count_x_mas(lines: list, line_length: int):
+    count = 0
+
+    for y, line in enumerate(lines):
+        for x, char in enumerate(line):
+            if char == 'A' and test_x_mas(lines, line_length, x, y):
+                count += 1
+    
+    return count
+
+def test_x_mas(lines: list, line_length: int, x: int, y: int):
+    if 0 <= y - 1 < len(lines) and 0 <= y + 1 < len(lines) and 0 <= x - 1 < line_length and 0 <= x + 1 < line_length:
+        characters = [lines[y-1][x-1], lines[y-1][x+1], lines[y+1][x-1], lines[y+1][x+1]]
+    else:
+        return False
+    
+    if characters[0] == 'M' and characters[1] == 'M' and characters[2] == 'S' and characters[3] == 'S':
+        return True
+    elif characters[0] == 'M' and characters[1] == 'S' and characters[2] == 'M' and characters[3] == 'S':
+        return True
+    elif characters[0] == 'S' and characters[1] == 'M' and characters[2] == 'S' and characters[3] == 'M':
+        return True
+    elif characters[0] == 'S' and characters[1] == 'S' and characters[2] == 'M' and characters[3] == 'M':
+        return True
+    else:
+        return False
+
+
+
+
+
+
+
+
+
+
 
 # count the occurrences of XMAS in the given input
 def count_xmas(lines: list, line_length: int):
